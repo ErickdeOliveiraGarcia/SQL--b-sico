@@ -1,0 +1,64 @@
+/* Lógico_4: */
+
+CREATE TABLE Nome (
+    Nome VARCHAR(100) PRIMARY KEY,
+    CPF INTEGER(11),
+    Bairro VARCHAR(25),
+    Cidade VARCHAR(30),
+    UF VARCHAR(2),
+    Endereco_Entrega VARCHAR(25),
+    CEP INTEGER(10),
+    Num_Cliente INTENGER
+);
+
+CREATE TABLE Numero_do_cliente (
+    Num_Cliente INTEGER(10) PRIMARY KEY,
+    Nome VARCHAR(30)
+);
+
+CREATE TABLE Informacoes_de_Faturamento (
+    Valor_R__ INTEGER,
+    Num_Cliente INTEGER,
+    Parcelas INTEGER,
+    Porcentagem__ INTEGER
+);
+
+CREATE TABLE Informacoes_Tecnicas (
+    Leitura_Anterior INTEGER,
+    Constante_Multiplicacao INTEGER,
+    Consumo_KWH INTEGER,
+    Leitura_Atual INTEGER,
+    Tipo_Medicao VARCHAR(30),
+    Num_Cliente INTEGER,
+    Informacoes_Tecnicas VARCHAR(100) PRIMARY KEY
+);
+
+CREATE TABLE Relacionamento_1_Informacoes_Tecnicas_Nome_Informacoes_de_Faturamento (
+    fk_Informacoes_Tecnicas_Informacoes_Tecnicas VARCHAR(100),
+    fk_Nome_Nome VARCHAR(100)
+);
+
+CREATE TABLE BUSCAR (
+    FK_Numero_do_cliente_Num_Cliente INTEGER(10),
+    FK_Nome_Nome VARCHAR(100)
+);
+ 
+ALTER TABLE Relacionamento_1_Informacoes_Tecnicas_Nome_Informacoes_de_Faturamento ADD CONSTRAINT FK_Relacionamento_1_Informacoes_Tecnicas_Nome_Informacoes_de_Faturamento_1
+    FOREIGN KEY (fk_Informacoes_Tecnicas_Informacoes_Tecnicas)
+    REFERENCES Informacoes_Tecnicas (Informacoes_Tecnicas)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Relacionamento_1_Informacoes_Tecnicas_Nome_Informacoes_de_Faturamento ADD CONSTRAINT FK_Relacionamento_1_Informacoes_Tecnicas_Nome_Informacoes_de_Faturamento_2
+    FOREIGN KEY (fk_Nome_Nome)
+    REFERENCES Nome (Nome)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE BUSCAR ADD CONSTRAINT FK_BUSCAR_1
+    FOREIGN KEY (FK_Numero_do_cliente_Num_Cliente)
+    REFERENCES Numero_do_cliente (Num_Cliente)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE BUSCAR ADD CONSTRAINT FK_BUSCAR_2
+    FOREIGN KEY (FK_Nome_Nome)
+    REFERENCES Nome (Nome)
+    ON DELETE SET NULL;
